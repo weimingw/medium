@@ -1,30 +1,26 @@
 var webpack = require('webpack');
 var rootPath = require("app-root-path");
 
-var BUILD_DIR = rootPath.path + '/public/'; // folder where we will put the output
-var APP_DIR = rootPath.path + '/src'; // folder from which we will grab files to compile
+var BUILD_DIR = rootPath.path + '/public/';
+var APP_DIR = rootPath.path + '/src';
 
 module.exports = {
+    mode: 'development',
     entry: {
-        'bundle': APP_DIR + '/index.js',
+        'bundle': APP_DIR + '/index.jsx',
     },
     output: {
-        path: BUILD_DIR, // where we are going to place the file locally
-        filename: "[name].js", // what the file will be named
-    },
-    devServer: { // tells our dev server where to serve content from
-        inline: true,
-        contentBase: "./dist", // will look inside this folder for index.html
-        port: 3000
+        path: BUILD_DIR,
+        filename: "[name].js",
     },
     module: {
-        loaders: [
+        rules: [
             {
-                test: /\.jsx?$/, // will load all js files
-                exclude: /node_modules/, // not in node modules (optional)
-                loader: 'babel-loader', // using babel-loader
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader',
                 query: {
-                  presets: ['babel-preset-env', 'react'], // with these presets (also optional)
+                  presets: ['babel-preset-env', 'react'],
                   plugins: ["syntax-async-functions","transform-regenerator", "transform-object-rest-spread"]
                 }
             },
